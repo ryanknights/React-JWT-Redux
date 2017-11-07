@@ -6,7 +6,7 @@ class Loader extends Component {
 		super(props);
 	}
 	render() {
-		let loading = this.props.loading;
+		let loading = this.props.loader.loading;
 
 		if (!loading) {
 			return null;
@@ -22,7 +22,7 @@ class Loader extends Component {
 
 function mapStateToProps(state) {
   return {
-    loading: state.loading
+    loader: state.loader
   }
 }
 
