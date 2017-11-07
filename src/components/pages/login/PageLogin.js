@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux'; 
 import { setFeedback, setDelayedFeedback } from '../../../actions/feedback';
 import { login } from '../../../actions/auth';
@@ -8,9 +7,6 @@ import { login } from '../../../actions/auth';
 import LoginForm from './LoginForm';
 
 class PageLogin extends Component {
-	constructor(props) {
-		super(props);
-	}
 	render () {
 		return (
 			<div>
@@ -30,10 +26,16 @@ class PageLogin extends Component {
 	}
 }
 
+function mapStateToProps(state) {
+	return {
+		auth: state.auth
+	}
+}
+
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     setFeedback, setDelayedFeedback, login
   }, dispatch)
 }
 
-export default withRouter(connect(null, mapDispatchToProps)(PageLogin));
+export default connect(mapStateToProps, mapDispatchToProps)(PageLogin);

@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux'; 
 
 class PagePosts extends Component {
-	constructor(props) {
-		super(props);
-	}
 	render () {
 		return (
 			<div>
@@ -17,14 +13,8 @@ class PagePosts extends Component {
 
 function mapStateToProps(state) {
 	return {
-
+		auth: state.auth
 	}
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-
-  }, dispatch)
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PagePosts);
+export default connect(mapStateToProps)(PagePosts);

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux'; 
 import { setFeedback, setDelayedFeedback } from '../../../actions/feedback';
 import { register } from '../../../actions/auth';
@@ -8,9 +7,6 @@ import { register } from '../../../actions/auth';
 import RegisterForm from './RegisterForm';
 
 class PageRegister extends Component {
-	constructor(props) {
-		super(props);
-	}
 	render () {
 		return (
 			<div>
@@ -36,4 +32,4 @@ function mapDispatchToProps(dispatch) {
   }, dispatch)
 }
 
-export default withRouter(connect(null, mapDispatchToProps)(PageRegister));
+export default connect(null, mapDispatchToProps)(PageRegister);

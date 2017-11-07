@@ -7,11 +7,7 @@ import Main from './Main';
 import Loader from './Loader';
 
 class App extends Component {
-	constructor(props) {
-		super(props);
-	}
 	render() {
-		let loading = this.props.loader.appLoading;
 		return (
 			<div className="app">
 				{

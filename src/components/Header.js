@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux'; 
-import { logout } from '../actions/auth';
+import { logout, redirectToLogin } from '../actions/auth';
+import { setDelayedFeedback } from '../actions/feedback';
 
 class Header extends Component {
-	constructor(props) {
-		super(props);
-	}
-	render () {
+	render () {	
 		return (
 			<header>
 			  <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -53,13 +50,16 @@ class Header extends Component {
 	onClickLogout(event) {
 		event.preventDefault();
 		this.props.logout();
-		this.props.history.push('/login');
+		this.props.setDelayedFeedback({message: 'Successfully logged out', type: 'info'});
+		this.props.redirectToLogin();
 	}
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    logout: logout
+    logout: logout,
+    setDelayedFeedback: setDelayedFeedback,
+    redirectToLogin: redirectToLogin
   }, dispatch)
 }
 
@@ -69,4 +69,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

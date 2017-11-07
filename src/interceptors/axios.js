@@ -12,7 +12,6 @@ const onSuccess = (response) => {
 }
 
 const onError = (error) => {
-
   switch (error.response.status) {
     case 401:
       const originalRequest = error.config;

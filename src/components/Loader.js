@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class Loader extends Component {
-	constructor(props) {
-		super(props);
-	}
 	render() {
 		let loading = this.props.loader.loading;
 

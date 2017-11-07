@@ -5,9 +5,6 @@ import { bindActionCreators } from 'redux';
 import { clearFeedback } from '../actions/feedback';
 
 class Feedback extends Component {
-	constructor(props) {
-		super(props);
-	}
 	componentDidUpdate(prevProps) {
 		if (this.props.location.pathname !== prevProps.location.pathname) {
 			this.props.clear();
