@@ -14,7 +14,6 @@ export const appInit = () => dispatch => {
 
 	dispatch(auth.authenticate())
 		.then(() => {
-			console.log('App Finished Loading');
 			dispatch(setAppLoading(false));
 		})
 		.catch((error) => {

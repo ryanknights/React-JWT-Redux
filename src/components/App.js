@@ -14,7 +14,6 @@ class App extends Component {
 					(this.props.loader.appLoading)
 					? <div>App Loading</div>
 					: <div>
-						<Loader />
 						<Header />
 						<Main />
 					  </div>

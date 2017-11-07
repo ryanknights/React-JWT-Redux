@@ -7,6 +7,8 @@ import PageRegister from './pages/register/PageRegister';
 import PagePosts from './pages/posts/PagePosts';
 
 import Feedback from './Feedback';
+import Loader from './Loader';
+
 
 import Auth from './Auth';
 import NoAuth from './NoAuth';
@@ -17,12 +19,11 @@ export default class Main extends Component {
 			<section>
 				<div className="container pt-3 pb-3">
 					<Feedback />
-					<Switch>
-						<Route exact path='/login' component={NoAuth(PageLogin, {})} />
-						<Route exact path='/register' component={NoAuth(PageRegister, {})} />
-						<Route exact path='/' component={Auth(PageHome, {})} />
-						<Route exact path='/posts' component={Auth(PagePosts, {})} />
-					</Switch>
+					<Loader />
+					<Route exact path='/login' component={NoAuth(PageLogin, {})} />
+					<Route exact path='/register' component={NoAuth(PageRegister, {})} />
+					<Route exact path='/' component={Auth(PageHome, {})} />
+					<Route exact path='/posts' component={Auth(PagePosts, {})} />
 				</div>
 			</section>
 		);
