@@ -1,14 +1,39 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { bindActionCreators } from 'redux'; 
+import { setFeedback, setDelayedFeedback } from '../../../actions/feedback';
+import { register } from '../../../actions/auth';
 
-export default class PageRegister extends Component {
+import RegisterForm from './RegisterForm';
+
+class PageRegister extends Component {
 	constructor(props) {
 		super(props);
 	}
 	render () {
 		return (
 			<div>
-				<h1 class="display-4">Register</h1>
+				<h1 className="display-4">Register</h1>
+				<div className="row">
+					<div className="col-md-6">
+						<RegisterForm
+							setFeedback={this.props.setFeedback}
+							setDelayedFeedback={this.props.setDelayedFeedback}
+							history={this.props.history}
+							register={this.props.register}
+						/>
+					</div>
+				</div>
 			</div>
 		);
 	}
 }
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    setFeedback, setDelayedFeedback, register
+  }, dispatch)
+}
+
+export default withRouter(connect(null, mapDispatchToProps)(PageRegister));

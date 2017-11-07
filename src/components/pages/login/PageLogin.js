@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux'; 
-import { setFeedback } from '../../../actions/feedback';
+import { setFeedback, setDelayedFeedback } from '../../../actions/feedback';
 import { login } from '../../../actions/auth';
 
 import LoginForm from './LoginForm';
@@ -18,6 +19,8 @@ class PageLogin extends Component {
 					<div className="col-md-6">
 						<LoginForm
 							setFeedback={this.props.setFeedback}
+							setDelayedFeedback={this.props.setDelayedFeedback}
+							history={this.props.history}
 							login={this.props.login}
 						/>
 					</div>
@@ -27,16 +30,10 @@ class PageLogin extends Component {
 	}
 }
 
-function mapStateToProps(state) {
-	return {
-		auth: state.auth
-	}
-}
-
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    setFeedback, login
+    setFeedback, setDelayedFeedback, login
   }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PageLogin);
+export default withRouter(connect(null, mapDispatchToProps)(PageLogin));

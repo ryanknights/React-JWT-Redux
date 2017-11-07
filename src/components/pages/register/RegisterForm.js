@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 
-export default class LoginForm extends Component {
+export default class RegisterForm extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
 			username: '',
+			email: '',
 			password: ''
 		};
 	}
@@ -21,7 +22,17 @@ export default class LoginForm extends Component {
 						placeholder="Enter username" 
 						onChange={event => this.setState({username: event.target.value})}
 					/>
-				</div>					
+				</div>	
+				<div className="form-group">
+					<label>Email address</label>
+					<input 
+						type="email" 
+						className="form-control" 
+						id="email" 
+						placeholder="Enter email address" 
+						onChange={event => this.setState({email: event.target.value})}
+					/>
+				</div>								
 				<div className="form-group">
 					<label>Password</label>
 					<input 
@@ -32,14 +43,14 @@ export default class LoginForm extends Component {
 						onChange={event => this.setState({password: event.target.value})}
 					/>
 				</div>
-				<button type="submit" className="btn btn-primary">Login</button>
+				<button type="submit" className="btn btn-primary">Register</button>
 			</form>
 		);
 	}
 
 	submitForm(event, data) {
 		event.preventDefault();
-		this.props.login(this.state)
+		this.props.register(this.state)
 			.then(response => {
 				this.props.setDelayedFeedback({message: 'Logged in', type: 'info'});
 				this.props.history.push('/');

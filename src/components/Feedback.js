@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux'; 
 import { clearFeedback } from '../actions/feedback';
 
 class Feedback extends Component {
 	constructor(props) {
 		super(props);
+	}
+	componentDidUpdate(prevProps) {
+		if (this.props.location.pathname !== prevProps.location.pathname) {
+			this.props.clear();
+		}
 	}
 	render() {
 		let feedback = this.props.feedback;
@@ -39,4 +45,4 @@ function mapDispatchToProps(dispatch) {
   }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Feedback);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Feedback));

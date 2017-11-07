@@ -2,15 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'; 
 
-class PageHome extends Component {
+class PagePosts extends Component {
 	constructor(props) {
 		super(props);
 	}
 	render () {
 		return (
 			<div>
-				<h1 className="display-4">Home</h1>
-				{ JSON.stringify(this.props.auth) }
+				<h1 className="display-4">Posts</h1>
 			</div>
 		);
 	}
@@ -18,7 +17,7 @@ class PageHome extends Component {
 
 function mapStateToProps(state) {
 	return {
-		auth: state.auth
+
 	}
 }
 
@@ -28,4 +27,4 @@ function mapDispatchToProps(dispatch) {
   }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PageHome);
+export default connect(mapStateToProps, mapDispatchToProps)(PagePosts);

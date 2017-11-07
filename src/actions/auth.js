@@ -10,10 +10,17 @@ export const login = credentials => dispatch => {
 	});
 }
 
+export const register = credentials => dispatch => {
+	return Auth.register(credentials).then(data => {
+		return dispatch(login(credentials));
+	});
+}
+
 export const authenticate = () => dispatch => {
 	return Auth.authenticate().then(data => {
 		dispatch(setLoggedIn(true));
 		dispatch(setUser(data.user));
+		return data;
 	});
 }
 
