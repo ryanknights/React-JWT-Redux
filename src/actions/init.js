@@ -19,5 +19,6 @@ export const appInit = () => dispatch => {
 		.catch((error) => {
 			dispatch(setAppLoading(false));
 			dispatch(auth.logout());
+			dispatch(auth.redirectToLogin());
 		});
 }

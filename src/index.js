@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
-import store from './store/index'
+import { store, history } from './store/index'
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import { ConnectedRouter } from 'react-router-redux';
 import { appInit }  from './actions/init';
 import axios from 'axios';
 import { onSuccess, onError, beforeRequestSuccess, beforeRequestError } from './interceptors/axios';
@@ -15,8 +15,8 @@ store.dispatch(appInit());
 
 ReactDOM.render((
 	<Provider store={store}>
-		<BrowserRouter>
+		<ConnectedRouter history={history}>
 			<App />
-		</BrowserRouter>
+		</ConnectedRouter>
 	</Provider>
 ), document.getElementById('root'));

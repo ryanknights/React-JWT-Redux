@@ -1,4 +1,5 @@
 import Auth from '../services/auth';
+import { push } from 'react-router-redux';
 
 export const login = credentials => dispatch => {
 	return Auth.login(credentials).then(data => {
@@ -29,6 +30,10 @@ export const logout = () => dispatch => {
 	dispatch(setUser(false));		
 	dispatch(clearAccessToken());
 	dispatch(clearRefreshToken());
+}
+
+export const redirectToLogin = () => dispatch => {
+	dispatch(push('/login'));
 }
 
 export const setLoggedIn = status => {
