@@ -3,16 +3,22 @@ import { connect } from 'react-redux';
 
 class Loader extends Component {
 	render() {
-		let loading = this.props.loader.loading;
+		let loader = this.props.loader;
 
-		if (!loading) {
-			return null;
-		} else {
+		if (loader.appLoading) {
 			return (
-				<div className="loading">
-					Loading...
+				<div className="loader__app-loading">
+					App Loading...
 				</div>
 			);
+		} else if (loader.loading) {
+			return (
+				<div className="loader__loading">
+					Loading...
+				</div>
+			)
+		} else {
+			return null;
 		}		
 	}
 }

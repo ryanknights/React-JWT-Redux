@@ -12,13 +12,14 @@ export const appInit = () => dispatch => {
 	dispatch(auth.setAccessToken(accessToken));
 	dispatch(auth.setRefreshToken(refreshToken));
 
-	dispatch(auth.authenticate())
+	return dispatch(auth.authenticate())
 		.then(() => {
-			dispatch(setAppLoading(false));
+			return dispatch(setAppLoading(false));
 		})
 		.catch((error) => {
 			dispatch(setAppLoading(false));
 			dispatch(auth.logout());
 			dispatch(auth.redirectToLogin());
+			return error;
 		});
 }

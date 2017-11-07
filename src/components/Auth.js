@@ -12,23 +12,29 @@ export default (ComposedComponent, config) => {
 
 	class Auth extends Component {
 		componentWillMount() {
-			if (!this.props.auth.loggedin) {
-				this.props.history.push(settings.redirect);
-			}
+			this.security(this.props);
 		}
-		componentWillUpdate() {
-			if (!this.props.auth.loggedin) {
+		componentWillReceiveProps(nextProps) {				
+			this.security(nextProps);		
+		}
+		security(props) {
+			if (!props.auth.loggedin && !props.appLoading) {
 				this.props.history.push(settings.redirect);
-			}		
+			}			
 		}
 		render() {
-			return <ComposedComponent {...this.props} />;
+			if (this.props.appLoading || !this.props.auth.loggedin) {
+				return null;
+			} else {
+				return <ComposedComponent {...this.props} />;
+			}
 		}
 	}
 
 	function mapStateToProps(state) {
 		return {
-			auth: state.auth
+			auth: state.auth,
+			appLoading: state.loader.appLoading
 		}
 	}
 
