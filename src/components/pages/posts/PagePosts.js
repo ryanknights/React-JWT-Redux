@@ -1,28 +1,37 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'; 
-import { getPosts } from '../../../actions/posts';
-import { setLoading } from '../../../actions/loading';
+import { getPosts, removePost, addPost } from '../../../actions/posts';
+import { setFeedback } from '../../../actions/feedback';
 
 import PostsList from './PostsList';
+import AddForm from './AddForm';
 
 class PagePosts extends Component {
 	componentDidMount() {
 		if (!this.props.fetching) {
-			this.props.getPosts();
+			this.props.getPosts()
+				.catch(error => {
+					this.props.setFeedback({message: 'fdsf', 'type': 'warning'});
+				});
 		}
 	}
 	render () {
-		console.log('Render Posts');
 		return (
 			<div>
 				<h1 className="display-4">Posts</h1>
 				<PostsList 
 					posts={this.props.posts}
-					fetching={this.props.isFetching}
+					fetching={this.props.fetching}
+					remove={this.props.removePost}
+					removing={this.props.removing}
+					setFeedback={this.props.setFeedback}
 				/>
-				<button onClick={event => this.props.setLoading(true)}>Enable Loading</button>
-				<button onClick={event => this.props.setLoading(false)}>Disable Loading</button>
+				<AddForm
+					add={this.props.addPost}
+					adding={this.props.adding}
+					setFeedback={this.props.setFeedback}
+				/>
 			</div>
 		);
 	}
@@ -31,14 +40,17 @@ class PagePosts extends Component {
 function mapStateToProps(state) {
 	return {
 		posts: state.posts.all,
-		fetching: state.posts.isFetching
+		fetching: state.posts.isFetching,
+		adding: state.posts.isAdding
 	}
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
 	getPosts: getPosts,
-	setLoading: setLoading
+	removePost: removePost,
+	setFeedback: setFeedback,
+	addPost: addPost
   }, dispatch)
 }
 

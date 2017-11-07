@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 export default class PostsList extends Component {
-	render () {
+	render() {
 		return (
 			<div className="posts__list">
 				{
@@ -22,13 +22,14 @@ export default class PostsList extends Component {
 								<tbody>
 									{this.props.posts.map((post) => {
 										return (
-											<tr>
+											<tr key={post._id}>
 												<td>{post._id}</td>
 												<td>{post.title}</td>
 												<td>{post.content}</td>
 												<td>
 													<button 
 														className="btn btn-danger"
+														onClick={event => this.removePost(post._id)}
 													>
 														Delete
 													</button>
@@ -46,5 +47,10 @@ export default class PostsList extends Component {
 				}
 			</div>		
 		);
+	}
+	removePost(id) {
+		this.props.remove(id)
+	        .then(() => this.props.setFeedback({message: 'Post removed', type: 'success'}))
+	        .catch((error) => this.props.setFeedback({message: error.data, type: 'warning'}));
 	}
 }

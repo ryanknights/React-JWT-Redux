@@ -3,7 +3,7 @@ import axios from 'axios';
 export default {
 	getPosts () {
 		return axios.get(`https://expressapi.ryanknights.co.uk/api/posts`)
-			.then(response => response.data)
+			.then(response => response.data.posts)
 			.catch(error => Promise.reject(error.response));
 	},
 	getPost (id) {
