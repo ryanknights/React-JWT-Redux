@@ -4,6 +4,7 @@ import Auth from '../services/auth';
 
 import { setAccessToken, logout, redirectToLogin } from '../actions/auth';
 import { setLoading } from '../actions/loading';
+import { getAccessToken, getRefreshToken } from '../reducers/auth';
 
 const onSuccess = (response) => {
   store.dispatch(setLoading(false));
@@ -17,8 +18,7 @@ const onError = (error) => {
       const originalRequest = error.config;
       if (!originalRequest._retry && error.response.data === 'Token Expired') {
         originalRequest._retry = true;
-        const currentState = store.getState();
-        const refreshToken = currentState.auth.tokens.refresh;
+        const refreshToken = getRefreshToken(store.getState());
         return Auth.refresh(refreshToken).then((response) => {
             store.dispatch(setAccessToken(response.token.access));
             return axios(originalRequest);
@@ -34,14 +34,11 @@ const onError = (error) => {
   }
 
   store.dispatch(setLoading(false));
-
   return Promise.reject(error); 
 }
 
 const beforeRequestSuccess = (config) => {
-  const currentState = store.getState();
-  const accessToken = currentState.auth.tokens.access;
-
+  const accessToken = getAccessToken(store.getState());
   store.dispatch(setLoading(true));
   config.headers.Authorization = `Bearer ${accessToken}`;
   return config;

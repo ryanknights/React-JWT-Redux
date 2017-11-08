@@ -1,13 +1,11 @@
 const initialAuth = {
 	loggedin: false,
 	user: false,
-	tokens: {
-		access: null,
-		refresh: null
-	}
+	accessToken: null,
+	refreshToken: null
 };
 
-const auth = (state = initialAuth, action) => {
+export const auth = (state = initialAuth, action) => {
 	switch (action.type) {
 		case 'SET_LOGGED_IN':
 			return {...state, ...{ loggedin: action.status}};
@@ -17,39 +15,49 @@ const auth = (state = initialAuth, action) => {
 			return {...state, ...{ user: false}};
 		case 'SET_ACCESS_TOKEN':
 			return {
-					...state,
-					tokens: {
-						access: action.token,
-						refresh: state.tokens.refresh
-					}
-				};
+				...state,
+				accessToken: action.token
+			};
 		case 'CLEAR_ACCESS_TOKEN':
 			return {
 				...state,
-				tokens: {
-					access: null,
-					refresh: state.tokens.refresh
-				}
+				accessToken: null
 			};			
 		case 'SET_REFRESH_TOKEN':
 			return {
 				...state,
-				tokens: {
-					access: state.tokens.access,
-					refresh: action.token
-				}
+				refreshToken: action.token
 			};
 		case 'CLEAR_REFRESH_TOKEN':
 			return {
 				...state,
-				tokens: {
-					access: state.tokens.access,
-					refresh: null
-				}
+				refreshToken: null
 			};							
 		default:
 			return state;
 	}
 }
 
-export default auth;
+export const getAuth = (state) => {
+	return state.auth;
+}
+
+export const getLoggedIn = (state) => {
+	return state.auth.loggedin;
+}
+
+export const getUser = (state) => {
+	return state.auth.user;
+}
+
+export const getUserIsAdmin = (state) => {
+	return (state.auth.user && state.auth.user.isAdmin);
+}
+
+export const getAccessToken = (state) => {
+	return state.auth.accessToken;
+}
+
+export const getRefreshToken = (state) => {
+	return state.auth.refreshToken;
+}

@@ -1,4 +1,4 @@
-const posts = (state = {all: [], isFetching: false, isRemoving: false, isAdding: false}, action) => {
+export const posts = (state = {all: [], isFetching: false, isRemoving: false, isAdding: false}, action) => {
 	switch (action.type) {
 		case 'REQUEST_POSTS':
 			return {...state, ...{isFetching: true}};
@@ -25,4 +25,18 @@ const posts = (state = {all: [], isFetching: false, isRemoving: false, isAdding:
 	}
 }
 
-export default posts;
+export const getAllPosts = (state) => {
+	return state.posts.all;
+}
+
+export const getIsFetchingPosts = (state) => {
+	return state.posts.isFetching;
+}
+
+export const getIsRemovingPost = (state) => {
+	return state.posts.isRemoving;
+}
+
+export const getIsAddingPost = (state) => {
+	return state.posts.isAdding;
+}

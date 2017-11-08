@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { getAppLoading } from '../reducers/loader';
+import { getLoggedIn } from '../reducers/auth'; 
 
 export default (ComposedComponent, config) => {
 	const settings = {
@@ -18,12 +20,12 @@ export default (ComposedComponent, config) => {
 			this.security(nextProps);		
 		}
 		security(props) {
-			if (props.auth.loggedin && !props.appLoading) {
+			if (props.loggedIn && !props.appLoading) {
 				this.props.history.push(settings.redirect);
 			}				
 		}
 		render() {
-			if (this.props.appLoading || this.props.auth.loggedin) {
+			if (this.props.appLoading || this.props.loggedIn) {
 				return null;
 			} else {
 				return <ComposedComponent {...this.props} />;
@@ -33,8 +35,8 @@ export default (ComposedComponent, config) => {
 
 	function mapStateToProps(state) {
 		return {
-			auth: state.auth,
-			appLoading: state.loader.appLoading
+			loggedIn: getLoggedIn(state),
+			appLoading: getAppLoading(state)
 		}
 	}
 

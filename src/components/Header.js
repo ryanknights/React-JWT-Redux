@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'; 
 import { logout, redirectToLogin } from '../actions/auth';
 import { setDelayedFeedback } from '../actions/feedback';
+import { getLoggedIn, getUser, getUserIsAdmin } from '../reducers/auth';
 
 class Header extends Component {
 	render () {	
@@ -14,7 +15,7 @@ class Header extends Component {
 			    <Link to="/" className="navbar-brand">React JWT</Link>
 			      <div className="navbar-collapse" id="navbar">
 					{ 
-					(this.props.auth.loggedin)
+					(this.props.loggedIn)
 					  ? <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
 			          		<li className="nav-item active">
 			            		<Link to="/" className="nav-link">Home</Link>
@@ -23,7 +24,7 @@ class Header extends Component {
 			            		<Link to="/posts" className="nav-link">Posts</Link>
 			          		</li>
 			          		{
-			          			(this.props.auth.user && this.props.auth.user.isAdmin)
+			          			(this.props.isUserAdmin)
 			          			? <li className="nav-item active">
 			            			<Link to="/admin" className="nav-link">Admin</Link>
 			          			  </li>
@@ -33,10 +34,10 @@ class Header extends Component {
 					  : null
 					}
 				    { 
-				        (this.props.auth.loggedin)
+				        (this.props.loggedIn)
 				          ? <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
 				          		<li className="nav-item">
-				          			Logged in as <strong>{this.props.auth.user.username}</strong> <a onClick={event => this.onClickLogout(event)}><em>(Logout)</em></a>
+				          			Logged in as <strong>{this.props.user.username}</strong> <a onClick={event => this.onClickLogout(event)}><em>(Logout)</em></a>
 				          		</li>
 				          	</ul>
 				          : <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -72,7 +73,9 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
   return {
-    auth: state.auth
+  	loggedIn: getLoggedIn(state),
+  	user: getUser(state),
+  	isUserAdmin: getUserIsAdmin(state)
   }
 }
 

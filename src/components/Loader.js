@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { getLoading, getAppLoading } from '../reducers/loader';
 
 class Loader extends Component {
 	render() {
-		let loader = this.props.loader;
-
-		if (loader.appLoading) {
+		if (this.props.appLoading) {
 			return (
 				<div className="loader__app-loading">
 					App Loading...
 				</div>
 			);
-		} else if (loader.loading) {
+		} else if (this.props.loading) {
 			return (
 				<div className="loader__loading">
 					Loading...
@@ -25,7 +24,8 @@ class Loader extends Component {
 
 function mapStateToProps(state) {
   return {
-    loader: state.loader
+    loading: getLoading(state),
+    appLoading: getAppLoading(state)
   }
 }
 

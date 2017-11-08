@@ -1,9 +1,10 @@
 import Users from '../services/users';	
+import { getAllUsers } from '../reducers/users';
 
 export const getUsers = () => (dispatch, getState) => {
-	const { users } = getState();
-	if (users.all !== undefined && users.all.length) {
-		return Promise.resolve(users);
+	const allUsers = getAllUsers(getState());
+	if (allUsers !== undefined && allUsers.length) {
+		return Promise.resolve(allUsers);
 	}
 	dispatch(requestUsers());
 	return Users.getUsers().then(data => {

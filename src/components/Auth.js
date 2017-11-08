@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { getAppLoading } from '../reducers/loader';
+import { getLoggedIn, getUserIsAdmin } from '../reducers/auth'; 
 
 export default (ComposedComponent, config) => {
 	const settings = {
@@ -19,13 +21,13 @@ export default (ComposedComponent, config) => {
 		}
 		security(props) {
 			// If app is not loading and user is not logged in
-			if (!props.appLoading && !props.auth.loggedin) {
+			if (!props.appLoading && !props.loggedIn) {
 				this.redirect();
 			}
 
 			if (settings.admin) { 
 				// If app is not loading, user is logged in and user is not an admin
-				if (!props.appLoading && props.auth.loggedin && !props.auth.user.isAdmin) {
+				if (!props.appLoading && props.loggedIn && !props.isAdmin) {
 					this.redirect();
 				}
 			}			
@@ -37,8 +39,8 @@ export default (ComposedComponent, config) => {
 			if (
 				// Dont display component if...
 				this.props.appLoading // App is initially loading
-				|| !this.props.auth.loggedin // User is not logged in
-				|| (settings.admin && !this.props.auth.user.isAdmin) // Admin route and user is not an admin
+				|| !this.props.loggedIn // User is not logged in
+				|| (settings.admin && !this.props.isAdmin) // Admin route and user is not an admin
 			) {
 				return null;
 			} else {
@@ -49,8 +51,9 @@ export default (ComposedComponent, config) => {
 
 	function mapStateToProps(state) {
 		return {
-			auth: state.auth,
-			appLoading: state.loader.appLoading
+			loggedIn: getLoggedIn(state),
+			isAdmin: getUserIsAdmin(state),
+			appLoading: getAppLoading(state)
 		}
 	}
 

@@ -32,6 +32,7 @@ export default class UsersList extends Component {
 													<button 
 														className="btn btn-danger"
 														onClick={event => this.removePost(user._id)}
+														disabled={this.props.removing}
 													>
 														Delete
 													</button>

@@ -1,4 +1,4 @@
-const users = (state = {all: [], isFetching: false, isRemoving: false, isAdding: false}, action) => {
+export const users = (state = {all: [], isFetching: false, isRemoving: false}, action) => {
 	switch (action.type) {
 		case 'REQUEST_USERS':
 			return {...state, ...{isFetching: true}};
@@ -18,4 +18,14 @@ const users = (state = {all: [], isFetching: false, isRemoving: false, isAdding:
 	}
 }
 
-export default users;
+export const getAllUsers = (state) => {
+	return state.users.all;
+}
+
+export const getIsFetchingUsers = (state) => {
+	return state.users.isFetching;
+}
+
+export const getIsRemovingUser = (state) => {
+	return state.users.isRemoving;
+}

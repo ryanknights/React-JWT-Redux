@@ -1,9 +1,10 @@
 import Posts from '../services/posts';	
+import { getAllPosts } from '../reducers/posts';
 
 export const getPosts = () => (dispatch, getState) => {
-	const { posts } = getState();
-	if (posts.all !== undefined && posts.all.length) {
-		return Promise.resolve(posts);
+	const allPosts = getAllPosts(getState());
+	if (allPosts !== undefined && allPosts.length) {
+		return Promise.resolve(allPosts);
 	}
 	dispatch(requestPosts());
 	return Posts.getPosts().then(posts => {
@@ -28,6 +29,7 @@ export const removePost = (id) => dispatch => {
 }
 
 export const addPost = (post) => dispatch => {
+	dispatch(addingPost());
 	return Posts.addPost(post).then(data => {
 		dispatch(addedPost(data.post));
 		return data;
