@@ -3,7 +3,7 @@ const initialFeedback = {
 	type: false	
 };
 
-const feedback = (state = initialFeedback, action) => {
+export const feedback = (state = initialFeedback, action) => {
 	switch (action.type) {
 		case 'SET_FEEDBACK':
 			return {...state, message: action.payload.message, type: action.payload.type}
@@ -14,4 +14,6 @@ const feedback = (state = initialFeedback, action) => {
 	}
 }
 
-export default feedback;
+export const getFeedback = (state) => {
+	return state.feedback;
+}

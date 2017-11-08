@@ -35,7 +35,13 @@ export default class AddForm extends Component {
 						value={this.state.content}
 					/>
 				</div>
-				<button type="submit" className="btn btn-primary">Add Post</button>
+				<button 
+					type="submit" 
+					className="btn btn-primary"
+					disabled={this.props.adding}
+				>
+					Add Post
+				</button>
 			</form>
 		);
 	}

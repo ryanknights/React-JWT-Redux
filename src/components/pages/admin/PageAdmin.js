@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'; 
 import { getUsers, removeUser } from '../../../actions/users';
 import { setFeedback } from '../../../actions/feedback';
+import { getAllUsers, getIsFetchingUsers, getIsRemovingUser } from '../../../reducers/users';
 
 import UsersList from './UsersList';
 
@@ -24,6 +25,7 @@ class PageAdmin extends Component {
 					fetching={this.props.fetching}
 					setFeedback={this.props.setFeedback}
 					remove={this.props.removeUser}
+					removing={this.props.removing}
 				/>
 			</div>
 		);
@@ -32,9 +34,9 @@ class PageAdmin extends Component {
 
 function mapStateToProps(state) {
 	return {
-		auth: state.auth,
-		users: state.users.all,
-		fetching: state.users.isFetching
+		users: getAllUsers(state),
+		fetching: getIsFetchingUsers(state),
+		removing: getIsRemovingUser(state)
 	}
 }
 

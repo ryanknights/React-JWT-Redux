@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'; 
 import { getPosts, removePost, addPost } from '../../../actions/posts';
 import { setFeedback } from '../../../actions/feedback';
+import { getAllPosts, getIsFetchingPosts, getIsAddingPost, getIsRemovingPost } from '../../../reducers/posts';
 
 import PostsList from './PostsList';
 import AddForm from './AddForm';
@@ -39,9 +40,10 @@ class PagePosts extends Component {
 
 function mapStateToProps(state) {
 	return {
-		posts: state.posts.all,
-		fetching: state.posts.isFetching,
-		adding: state.posts.isAdding
+		posts: getAllPosts(state),
+		fetching: getIsFetchingPosts(state),
+		adding: getIsAddingPost(state),
+		removing: getIsRemovingPost(state)
 	}
 }
 

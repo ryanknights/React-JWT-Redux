@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux'; 
 import { clearFeedback } from '../actions/feedback';
+import { getFeedback } from '../reducers/feedback';
 
 class Feedback extends Component {
 	componentDidUpdate(prevProps) {
@@ -32,7 +33,7 @@ class Feedback extends Component {
 
 function mapStateToProps(state) {
   return {
-    feedback: state.feedback
+    feedback: getFeedback(state)
   }
 }
 

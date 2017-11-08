@@ -1,4 +1,4 @@
-const loader = (state = {loading: false, appLoading: true}, action) => {
+export const loader = (state = {loading: false, appLoading: true}, action) => {
 	switch (action.type) {
 		case 'SET_LOADING':
 			return {...state, ...{ loading: action.status}};
@@ -9,4 +9,10 @@ const loader = (state = {loading: false, appLoading: true}, action) => {
 	}
 }
 
-export default loader;
+export const getLoading = (state) => {
+	return state.loader.loading;
+}
+
+export const getAppLoading = (state) => {
+	return state.loader.appLoading;
+}

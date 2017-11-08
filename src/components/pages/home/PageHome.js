@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { getAuth } from '../../../reducers/auth';
 
 class PageHome extends Component {
 	render () {
@@ -14,7 +15,7 @@ class PageHome extends Component {
 
 function mapStateToProps(state) {
 	return {
-		auth: state.auth
+		auth: getAuth(state)
 	}
 }
 

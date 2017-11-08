@@ -26,16 +26,10 @@ class PageLogin extends Component {
 	}
 }
 
-function mapStateToProps(state) {
-	return {
-		auth: state.auth
-	}
-}
-
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     setFeedback, setDelayedFeedback, login
   }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PageLogin);
+export default connect(null, mapDispatchToProps)(PageLogin);
