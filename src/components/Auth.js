@@ -18,12 +18,28 @@ export default (ComposedComponent, config) => {
 			this.security(nextProps);		
 		}
 		security(props) {
-			if (!props.auth.loggedin && !props.appLoading) {
-				this.props.history.push(settings.redirect);
+			// If app is not loading and user is not logged in
+			if (!props.appLoading && !props.auth.loggedin) {
+				this.redirect();
+			}
+
+			if (settings.admin) { 
+				// If app is not loading, user is logged in and user is not an admin
+				if (!props.appLoading && props.auth.loggedin && !props.auth.user.isAdmin) {
+					this.redirect();
+				}
 			}			
 		}
+		redirect() {
+			this.props.history.push(settings.redirect);
+		}
 		render() {
-			if (this.props.appLoading || !this.props.auth.loggedin) {
+			if (
+				// Dont display component if...
+				this.props.appLoading // App is initially loading
+				|| !this.props.auth.loggedin // User is not logged in
+				|| (settings.admin && !this.props.auth.user.isAdmin) // Admin route and user is not an admin
+			) {
 				return null;
 			} else {
 				return <ComposedComponent {...this.props} />;

@@ -1,6 +1,10 @@
 import Posts from '../services/posts';	
 
-export const getPosts = () => dispatch => {
+export const getPosts = () => (dispatch, getState) => {
+	const { posts } = getState();
+	if (posts.all !== undefined && posts.all.length) {
+		return Promise.resolve(posts);
+	}
 	dispatch(requestPosts());
 	return Posts.getPosts().then(posts => {
 		dispatch(receivePosts(posts));

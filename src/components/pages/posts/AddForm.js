@@ -45,6 +45,6 @@ export default class AddForm extends Component {
 		this.props.add(this.state)
 			.then(() => this.setState({title: '', content: ''}))
 			.then(() => this.props.setFeedback({message: 'Post added', type: 'success'}))
-			.catch(error => this.props.setFeedback({message: error.data, type: 'warning'}));		
+			.catch(error => this.props.setFeedback({message: 'There was a problem adding the post', type: 'warning'}));		
 	}
 }

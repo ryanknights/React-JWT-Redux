@@ -5,6 +5,7 @@ import PageHome from './pages/home/PageHome';
 import PageLogin from './pages/login/PageLogin';
 import PageRegister from './pages/register/PageRegister';
 import PagePosts from './pages/posts/PagePosts';
+import PageAdmin from './pages/admin/PageAdmin';
 
 import Feedback from './Feedback';
 
@@ -21,6 +22,7 @@ class Main extends Component {
 					<Route exact path='/register' component={NoAuth(PageRegister, {})} />
 					<Route exact path='/' component={Auth(PageHome, {})} />
 					<Route exact path='/posts' component={Auth(PagePosts, {})} />
+					<Route exact path='/admin' component={Auth(PageAdmin, {admin: true})} />
 				</div>
 			</section>
 		);

@@ -21,7 +21,14 @@ class Header extends Component {
 			          		</li>
 			          		<li className="nav-item active">
 			            		<Link to="/posts" className="nav-link">Posts</Link>
-			          		</li> 			          		
+			          		</li>
+			          		{
+			          			(this.props.auth.user && this.props.auth.user.isAdmin)
+			          			? <li className="nav-item active">
+			            			<Link to="/admin" className="nav-link">Admin</Link>
+			          			  </li>
+			          			: null
+			          		}
 			        	</ul>
 					  : null
 					}
