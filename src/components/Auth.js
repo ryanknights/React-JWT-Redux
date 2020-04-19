@@ -1,61 +1,77 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { getAppLoading } from '../reducers/loader';
-import { getLoggedIn, getUserIsAdmin } from '../reducers/auth'; 
+import { getLoggedIn, getUserIsAdmin } from '../reducers/auth';
+
+const propTypes = {
+  history: PropTypes.func.isRequired,
+  appLoading: PropTypes.bool.isRequired,
+  loggedIn: PropTypes.bool.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
+};
 
 export default (ComposedComponent, config) => {
-	const settings = {
-		...{
-			redirect: '/login',
-			admin: false
-		},
-		...config
-	};
+  const settings = {
+    ...{
+      redirect: '/login',
+      admin: false,
+    },
+    ...config,
+  };
 
-	class Auth extends Component {
-		componentWillMount() {
-			this.security(this.props);
-		}
-		componentWillReceiveProps(nextProps) {				
-			this.security(nextProps);		
-		}
-		security(props) {
-			// If app is not loading and user is not logged in
-			if (!props.appLoading && !props.loggedIn) {
-				this.redirect();
-			}
+  class Auth extends Component {
+    componentDidMount() {
+      this.security(this.props);
+    }
 
-			if (settings.admin) { 
-				// If app is not loading, user is logged in and user is not an admin
-				if (!props.appLoading && props.loggedIn && !props.isAdmin) {
-					this.redirect();
-				}
-			}			
-		}
-		redirect() {
-			this.props.history.push(settings.redirect);
-		}
-		render() {
-			if (
-				// Dont display component if...
-				this.props.appLoading // App is initially loading
-				|| !this.props.loggedIn // User is not logged in
-				|| (settings.admin && !this.props.isAdmin) // Admin route and user is not an admin
-			) {
-				return null;
-			} else {
-				return <ComposedComponent {...this.props} />;
-			}
-		}
-	}
+    UNSAFE_componentWillReceiveProps(nextProps) {
+      this.security(nextProps);
+    }
 
-	function mapStateToProps(state) {
-		return {
-			loggedIn: getLoggedIn(state),
-			isAdmin: getUserIsAdmin(state),
-			appLoading: getAppLoading(state)
-		}
-	}
+    security(props) {
+      // If app is not loading and user is not logged in
+      if (!props.appLoading && !props.loggedIn) {
+        this.redirect();
+      }
 
-	return connect(mapStateToProps)(Auth);
-}
+      if (settings.admin) {
+        // If app is not loading, user is logged in and user is not an admin
+        if (!props.appLoading && props.loggedIn && !props.isAdmin) {
+          this.redirect();
+        }
+      }
+    }
+
+    redirect() {
+      const { history } = this.props;
+      history.push(settings.redirect);
+    }
+
+    render() {
+      const { appLoading, loggedIn, isAdmin } = this.props;
+      if (
+        // Dont display component if...
+        appLoading // App is initially loading
+        || !loggedIn // User is not logged in
+        || (settings.admin && !isAdmin) // Admin route and user is not an admin
+      ) {
+        return null;
+      }
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      return <ComposedComponent {...this.props} />;
+    }
+  }
+
+  function mapStateToProps(state) {
+    return {
+      loggedIn: getLoggedIn(state),
+      isAdmin: getUserIsAdmin(state),
+      appLoading: getAppLoading(state),
+    };
+  }
+
+  Auth.propTypes = propTypes;
+
+  return connect(mapStateToProps)(Auth);
+};
