@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getAuth } from '../../../reducers/auth'
+import { getAuth } from '../../../reducers/auth';
 
 const propTypes = {
   auth: PropTypes.objectOf(PropTypes.any).isRequired,
@@ -10,7 +10,7 @@ const propTypes = {
 function PageHome({ auth }) {
   return (
     <div>
-      <h1 className="display-4">Home - Build Broken</h1>
+      <h1 className="display-4">Home - Build Fixed</h1>
       { JSON.stringify(auth) }
     </div>
   );
