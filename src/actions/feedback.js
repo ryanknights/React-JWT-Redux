@@ -1,20 +1,14 @@
-export const setFeedback = data => {
-	return {
-		type: 'SET_FEEDBACK',
-		payload: data
-	}
-}
+export const clearFeedback = () => ({
+  type: 'CLEAR_FEEDBACK',
+});
 
-export const setDelayedFeedback = data => {
-	return dispatch => {
-		setTimeout(() => {
-			dispatch(setFeedback(data));
-		}, data.delay || 10);
-	}
-}
+export const setFeedback = (data) => ({
+  type: 'SET_FEEDBACK',
+  payload: data,
+});
 
-export const clearFeedback = () => {
-	return {
-		type: 'CLEAR_FEEDBACK'
-	}
-}
+export const setDelayedFeedback = (data) => (dispatch) => {
+  setTimeout(() => {
+    dispatch(setFeedback(data));
+  }, data.delay || 10);
+};
