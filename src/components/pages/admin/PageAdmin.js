@@ -11,7 +11,7 @@ const propTypes = {
   fetching: PropTypes.bool.isRequired,
   getUsers: PropTypes.func.isRequired,
   setFeedback: PropTypes.func.isRequired,
-  users: PropTypes.objectOf(PropTypes.object).isRequired,
+  users: PropTypes.arrayOf(PropTypes.any).isRequired,
   removeUser: PropTypes.func.isRequired,
   removing: PropTypes.bool.isRequired,
 };

@@ -6,7 +6,7 @@ const propTypes = {
   setFeedback: PropTypes.func.isRequired,
   fetching: PropTypes.bool.isRequired,
   removing: PropTypes.bool.isRequired,
-  posts: PropTypes.instanceOf(PropTypes.object).isRequired,
+  posts: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 class PostsList extends Component {

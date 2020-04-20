@@ -17,7 +17,7 @@ import AddForm from './AddForm';
 const propTypes = {
   getPosts: PropTypes.func.isRequired,
   fetching: PropTypes.bool.isRequired,
-  posts: PropTypes.instanceOf(PropTypes.object).isRequired,
+  posts: PropTypes.arrayOf(PropTypes.any).isRequired,
   setFeedback: PropTypes.func.isRequired,
   removePost: PropTypes.func.isRequired,
   removing: PropTypes.bool.isRequired,

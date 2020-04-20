@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const propTypes = {
   login: PropTypes.func.isRequired,
   setDelayedFeedback: PropTypes.func.isRequired,
-  history: PropTypes.instanceOf(PropTypes.object).isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
   setFeedback: PropTypes.func.isRequired,
 };
 

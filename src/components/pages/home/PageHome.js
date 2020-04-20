@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { getAuth } from '../../../reducers/auth';
 
 const propTypes = {
-  auth: PropTypes.instanceOf(PropTypes.object).isRequired,
+  auth: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 function PageHome({ auth }) {

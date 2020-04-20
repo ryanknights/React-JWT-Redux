@@ -11,7 +11,7 @@ import RegisterForm from './RegisterForm';
 const propTypes = {
   setFeedback: PropTypes.func.isRequired,
   setDelayedFeedback: PropTypes.func.isRequired,
-  history: PropTypes.instanceOf(PropTypes.objecg).isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
   register: PropTypes.func.isRequired,
 };
 

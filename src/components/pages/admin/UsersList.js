@@ -5,7 +5,7 @@ const propTypes = {
   remove: PropTypes.func.isRequired,
   setFeedback: PropTypes.func.isRequired,
   fetching: PropTypes.bool.isRequired,
-  users: PropTypes.instanceOf(PropTypes.object).isRequired,
+  users: PropTypes.arrayOf(PropTypes.object).isRequired,
   removing: PropTypes.bool.isRequired,
 };
 

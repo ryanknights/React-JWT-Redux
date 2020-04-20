@@ -13,7 +13,10 @@ const propTypes = {
   redirectToLogin: PropTypes.func.isRequired,
   loggedIn: PropTypes.bool.isRequired,
   isUserAdmin: PropTypes.bool.isRequired,
-  user: PropTypes.objectOf(PropTypes.object).isRequired,
+  user: PropTypes.oneOfType([
+    PropTypes.objectOf(PropTypes.any),
+    PropTypes.bool,
+  ]).isRequired,
 };
 
 class Header extends Component {

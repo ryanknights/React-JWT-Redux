@@ -5,7 +5,7 @@ import { getAppLoading } from '../reducers/loader';
 import { getLoggedIn, getUserIsAdmin } from '../reducers/auth';
 
 const propTypes = {
-  history: PropTypes.func.isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
   appLoading: PropTypes.bool.isRequired,
   loggedIn: PropTypes.bool.isRequired,
   isAdmin: PropTypes.bool.isRequired,

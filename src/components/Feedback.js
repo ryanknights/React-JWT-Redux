@@ -7,9 +7,15 @@ import { clearFeedback } from '../actions/feedback';
 import { getFeedback } from '../reducers/feedback';
 
 const propTypes = {
-  location: PropTypes.objectOf(PropTypes.object).isRequired,
+  location: PropTypes.oneOfType([
+    PropTypes.objectOf(PropTypes.any),
+    PropTypes.string,
+  ]).isRequired,
   clear: PropTypes.func.isRequired,
-  feedback: PropTypes.objectOf(PropTypes.object).isRequired,
+  feedback: PropTypes.oneOfType([
+    PropTypes.objectOf(PropTypes.any),
+    PropTypes.bool,
+  ]).isRequired,
 };
 
 class Feedback extends Component {

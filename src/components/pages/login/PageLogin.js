@@ -11,7 +11,7 @@ import LoginForm from './LoginForm';
 const propTypes = {
   setFeedback: PropTypes.func.isRequired,
   setDelayedFeedback: PropTypes.func.isRequired,
-  history: PropTypes.instanceOf(PropTypes.Object).isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
   login: PropTypes.func.isRequired,
 };
 
