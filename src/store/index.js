@@ -1,17 +1,17 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import createHistory from 'history/createBrowserHistory'
-import { routerMiddleware } from 'react-router-redux'
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { createBrowserHistory } from 'history';
+import { routerMiddleware } from 'connected-react-router';
 import rootReducer from '../reducers/index';
 
-const history = createHistory();
-
-let store = createStore(
-	rootReducer,
-	applyMiddleware(
-		thunk, 
-		routerMiddleware(history)
-	)
+const history = createBrowserHistory();
+const store = createStore(
+  rootReducer(history),
+  applyMiddleware(
+    thunk,
+    routerMiddleware(history),
+  ),
 );
 
 export { store, history };

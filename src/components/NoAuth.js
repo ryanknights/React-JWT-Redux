@@ -1,44 +1,57 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getAppLoading } from '../reducers/loader';
-import { getLoggedIn } from '../reducers/auth'; 
+import { getLoggedIn } from '../reducers/auth';
 
 export default (ComposedComponent, config) => {
-	const settings = {
-		...{
-			redirect: '/',
-			admin: false
-		},
-		...config
-	};
+  const settings = {
+    ...{
+      redirect: '/',
+      admin: false,
+    },
+    ...config,
+  };
 
-	class NoAuth extends Component {
-		componentWillMount() {
-			this.security(this.props);
-		}
-		componentWillReceiveProps(nextProps) {				
-			this.security(nextProps);		
-		}
-		security(props) {
-			if (props.loggedIn && !props.appLoading) {
-				this.props.history.push(settings.redirect);
-			}				
-		}
-		render() {
-			if (this.props.appLoading || this.props.loggedIn) {
-				return null;
-			} else {
-				return <ComposedComponent {...this.props} />;
-			}
-		}
-	}
+  const propTypes = {
+    appLoading: PropTypes.bool.isRequired,
+    loggedIn: PropTypes.bool.isRequired,
+  };
 
-	function mapStateToProps(state) {
-		return {
-			loggedIn: getLoggedIn(state),
-			appLoading: getAppLoading(state)
-		}
-	}
+  class NoAuth extends Component {
+    UNSAFE_componentWillMount() {
+      this.security(this.props);
+    }
 
-	return connect(mapStateToProps)(NoAuth);
-}
+    UNSAFE_componentWillReceiveProps(nextProps) {
+      this.security(nextProps);
+    }
+
+    security = (props) => {
+      const { loggedIn, appLoading, history } = props;
+      if (loggedIn && !appLoading) {
+        history.push(settings.redirect);
+      }
+    }
+
+    render() {
+      const { appLoading, loggedIn } = this.props;
+      if (appLoading || loggedIn) {
+        return null;
+      }
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      return <ComposedComponent {...this.props} />;
+    }
+  }
+
+  function mapStateToProps(state) {
+    return {
+      loggedIn: getLoggedIn(state),
+      appLoading: getAppLoading(state),
+    };
+  }
+
+  NoAuth.propTypes = propTypes;
+
+  return connect(mapStateToProps)(NoAuth);
+};

@@ -1,50 +1,64 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-export default class LoginForm extends Component {
-	constructor(props) {
-		super(props);
+const propTypes = {
+  login: PropTypes.func.isRequired,
+  setDelayedFeedback: PropTypes.func.isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
+  setFeedback: PropTypes.func.isRequired,
+};
 
-		this.state = {
-			username: '',
-			password: ''
-		};
-	}
-	render () {
-		return (
-			<form onSubmit={event => this.submitForm(event, this.state)}>
-				<div className="form-group">
-					<label>Username</label>
-					<input 
-						type="text" 
-						className="form-control" 
-						id="username" 
-						placeholder="Enter username" 
-						onChange={event => this.setState({username: event.target.value})}
-					/>
-				</div>					
-				<div className="form-group">
-					<label>Password</label>
-					<input 
-						type="password" 
-						className="form-control" 
-						id="password" 
-						placeholder="Enter password" 
-						onChange={event => this.setState({password: event.target.value})}
-					/>
-				</div>
-				<button type="submit" className="btn btn-primary">Login</button>
-			</form>
-		);
-	}
+class LoginForm extends Component {
+  constructor(props) {
+    super(props);
 
-	submitForm(event, data) {
-		event.preventDefault();
-		this.props.login(this.state)
-			.then(response => {
-				this.props.setDelayedFeedback({message: 'Logged in', type: 'info'});
-				this.props.history.push('/');
-			}).catch(error => {
-				this.props.setFeedback({message: error.data, type: 'warning'});
-			});
-	}
+    this.state = {
+      username: '',
+      password: '',
+    };
+  }
+
+  submitForm(event) {
+    const { props } = this;
+    event.preventDefault();
+    props.login(this.state)
+      .then((response) => {
+        props.setDelayedFeedback({ message: 'Logged in', type: 'info' });
+        props.history.push('/');
+      }).catch((error) => {
+        props.setFeedback({ message: error.data, type: 'warning' });
+      });
+  }
+
+  render() {
+    return (
+      <form onSubmit={(event) => this.submitForm(event, this.state)}>
+        <div className="form-group">
+          <label htmlFor="username">Username</label>
+          <input
+            type="text"
+            className="form-control"
+            id="username"
+            placeholder="Enter username"
+            onChange={(event) => this.setState({ username: event.target.value })}
+          />
+        </div>
+        <div className="form-group">
+          <label>Password</label>
+          <input
+            type="password"
+            className="form-control"
+            id="password"
+            placeholder="Enter password"
+            onChange={(event) => this.setState({ password: event.target.value })}
+          />
+        </div>
+        <button type="submit" className="btn btn-primary">Login</button>
+      </form>
+    );
+  }
 }
+
+LoginForm.propTypes = propTypes;
+
+export default LoginForm;
