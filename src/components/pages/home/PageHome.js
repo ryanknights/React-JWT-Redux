@@ -1,22 +1,27 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getAuth } from '../../../reducers/auth';
 
-class PageHome extends Component {
-	render () {
-		return (
-			<div>
-				<h1 className="display-4">Home</h1>
-				{ JSON.stringify(this.props.auth) }
-			</div>
-		);
-	}
+const propTypes = {
+  auth: PropTypes.instanceOf(PropTypes.object).isRequired,
+};
+
+function PageHome({ auth }) {
+  return (
+    <div>
+      <h1 className="display-4">Home</h1>
+      { JSON.stringify(auth) }
+    </div>
+  );
 }
 
 function mapStateToProps(state) {
-	return {
-		auth: getAuth(state)
-	}
+  return {
+    auth: getAuth(state),
+  };
 }
+
+PageHome.propTypes = propTypes;
 
 export default connect(mapStateToProps)(PageHome);

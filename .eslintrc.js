@@ -41,7 +41,9 @@ module.exports = {
     "react/jsx-filename-extension": [
       1,
       { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
-    ]
+    ],
+    "no-underscore-dangle": "off",
+    "jsx-a11y/label-has-associated-control": "off",
   },
   settings: {
     "import/resolver": {
