@@ -10,7 +10,7 @@ const propTypes = {
 function PageHome({ auth }) {
   return (
     <div>
-      <h1 className="display-4">Home - Build Fixed Again</h1>
+      <h1 className="display-4">Home</h1>
       { JSON.stringify(auth) }
     </div>
   );
