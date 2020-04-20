@@ -12,6 +12,7 @@ import {
   beforeRequestSuccess,
   beforeRequestError,
 } from './interceptors/axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 axios.interceptors.request.use(beforeRequestSuccess, beforeRequestError);
 axios.interceptors.response.use(onSuccess, onError);
