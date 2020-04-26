@@ -8,7 +8,12 @@ const propTypes = {
   loading: PropTypes.bool.isRequired,
 };
 
-function Loader({ appLoading, loading }) {
+interface LoaderProps {
+  appLoading?: boolean;
+  loading?: boolean;
+}
+
+function Loader({ appLoading, loading }: LoaderProps) {
   if (appLoading) {
     return (
       <div className="loader__app-loading">

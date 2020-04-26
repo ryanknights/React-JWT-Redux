@@ -3,15 +3,15 @@ import thunk from 'redux-thunk';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { createBrowserHistory } from 'history';
 import { routerMiddleware } from 'connected-react-router';
-import rootReducer from '../reducers/index';
+import rootReducer from '../reducers';
 
-const history = createBrowserHistory();
-const store = createStore(
-  rootReducer(history),
+export const history = createBrowserHistory();
+const reducer = rootReducer(history);
+export type AppState = ReturnType<typeof reducer>;
+export const store = createStore(
+  reducer,
   applyMiddleware(
     thunk,
     routerMiddleware(history),
   ),
 );
-
-export { store, history };
